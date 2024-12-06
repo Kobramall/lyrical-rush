@@ -1,19 +1,31 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+/*const functions = require('firebase-functions');
+const axios = require('axios');
+const qs = require('qs');
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+const clientId = functions.config().spotify.client_id;
+const clientSecret = functions.config().spotify.client_secret;
+const tokenUrl = 'https://accounts.spotify.com/api/token';
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+console.log(clientId, clientSecret)
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.getSpotifyToken = functions.https.onRequest(async (req, res) => {
+    try {
+        const response = await axios.post(
+            tokenUrl,
+            qs.stringify({ grant_type: 'client_credentials' }),
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+                }
+            }
+        );
+        res.status(200).send(response.data);
+    } catch (error) {
+        console.error('Error fetching Spotify access token:', error.message);
+        res.status(500).send({ error: 'Failed to retrieve token' });
+    }
+});
+*/
+
+const functions = require('firebase-functions');
