@@ -8,6 +8,24 @@
     }
 }
 
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.822); 
+    display: flex; /* Center the spinner */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color:#27013f;
+  }
+
+  .hidden{
+    visibility: hidden;
+    position: fixed;
+  }
 
 .homeMainContainer{
     display: flex;
@@ -18,7 +36,9 @@
     height: 100vh;
     background-image: url("C:\Users\kbram\lyrical-rush\src\assets\Group 3.png");
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
+    position: absolute;
 }
 
 .homeMainContainer audio{
@@ -109,6 +129,81 @@
     font-size: 12px;
 }
 
+.grindDisplay{
+    display: grid; /* Enable grid layout */
+    grid-template-columns: repeat(2, 1fr); /* Create two columns with equal width */
+    gap: 0px; /* Add spacing between grid items */
+    padding: 10px; /* Optional padding for the container */
+}
+
+.recommendTracksContainer{
+    display: flex;
+    background-color: #FFF;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    height: 100px;
+    border: #DCDCDC solid;
+    border-width: 0.2px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.recommendTracksInfo h2{
+    color: #000;
+    font-size: 10px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}
+
+.recommendTracksInfo h3{
+    color:#717171;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.tooltip-container {
+    position: relative; /* Relative positioning for the tooltip */
+    display: inline-block; /* Ensures the button and tooltip stay together */
+  }
+
+.playlistButton{
+    opacity: 50%;
+}
+
+.tooltip-box {
+    position: absolute; /* Position relative to the container */
+    bottom: 120%; /* Position above the button */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    visibility: hidden; /* Hide by default */
+    opacity: 0; /* Invisible by default */
+    transition: opacity 0.3s; /* Smooth fade-in effect */
+    z-index: 1; /* Ensure it's above other content */
+  }
+
+.tooltip-container:hover .tooltip-box {
+    visibility: visible; /* Make visible */
+    opacity: 1; /* Fully opaque */
+  }
+
+.tooltip-box::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Below the tooltip box */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent; /* Dark arrow pointing up */
+  }
+
 .closeIconContainer{
     display: flex;
     justify-content: flex-end;
@@ -141,7 +236,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color:#4A116D;
+  background-image: linear-gradient(to left top, #4a116d, #410c61, #380755, #2f044a, #27013f);
   width: 440px;
   height: 440px;
   border-radius: 750px;
@@ -213,4 +308,19 @@
     border: solid;
     border-color: #484848;
     border-width: 10px;
+}
+
+@media(max-width: 1400px) {
+   .homeMainContainer{
+     flex-direction: column-reverse;
+     align-items: center;
+     height: 100vh;
+   }
+
+   .heroContainer{
+    padding-top: 30px;
+    margin-top: 100px;
+    border: red solid;
+   }
+    
 }
