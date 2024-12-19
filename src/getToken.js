@@ -92,7 +92,6 @@ const getTokenOnLoad = async () => {
             },
           }
         );
-
           return response.data
     }catch(error){
         console.error("Error fetching Spotify access token:", error.message);

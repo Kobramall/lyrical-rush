@@ -166,7 +166,7 @@ export default function Home() {
         try {
           const response = await axios.get(url, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`, 
+              Authorization: `Bearer ${localStorage.getItem("simpleToken")}`, 
             },
             params: {
               q: query, 

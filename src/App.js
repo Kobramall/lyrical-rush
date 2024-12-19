@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Home from './pages/home/Home';
-import { redirectToSpotifyLogin, exchangeAuthorizationCodeForToken, refreshAccessToken } from './getToken'
+import { getTokenOnLoad, redirectToSpotifyLogin, exchangeAuthorizationCodeForToken, refreshAccessToken } from './getToken'
 
 import './App.css';
 
@@ -8,23 +8,18 @@ function App() {
 
 
   useEffect(()=> {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
     const now = new Date()
 
-    const expires = new Date(localStorage.getItem("expiresTime"))
-    
-    if(code){    
-       if(!localStorage.getItem("accessToken") || !localStorage.getItem("refreshToken") || !localStorage.getItem("expiredTime")){ 
-        handleSpotifyCallback()
+    const expires = new Date(localStorage.getItem("simpleExpiredTime"))
+       
+       if(!localStorage.getItem("simpleToken") || !localStorage.getItem("simpleExpiredTime")){ 
+         handleSpotifySimpleToken()
        }else{
           if(expires < now && expires){
-            handleRefreshToken()
+            handleSpotifySimpleToken()
          }
        }
-     }else{
-        redirectToSpotifyLogin()
-     }
+     
   }, [])
 
 
@@ -53,6 +48,24 @@ function App() {
     } else {
         console.error("Authorization code not found in URL.");
     }
+};
+
+const handleSpotifySimpleToken = async () => {
+ 
+      try {
+          const tokens = await getTokenOnLoad()
+
+          if(tokens.access_token){
+            localStorage.setItem("simpleToken", tokens.access_token)
+
+            const expires = new Date()
+            expires.setHours(expires.getHours() + 1)
+            localStorage.setItem("simpleExpiredTime", expires)
+          }
+      } catch (error) {
+          console.error("Error handling Spotify callback:", error);
+      }
+  
 };
 
 const handleRefreshToken = async () => {
