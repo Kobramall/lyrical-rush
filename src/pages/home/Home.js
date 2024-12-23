@@ -22,6 +22,7 @@ export default function Home() {
     const [selectedTrack, setSelectedTrack] = useState({})
     const [recommedSearch, setRecommendSearch] = useState(false)
     const [recommedSearchTracks, setRecommedSearchTracks] = useState([])
+    const [recommedTracksStats, setRecommedTracksStats] = useState([])
     const [loading, setLoading] = useState(false)
  
     const [recordPlaying, setRecordPlaying] = useState(false)
@@ -117,6 +118,7 @@ export default function Home() {
     const getRecommendations = async () => {
          setLoading(true)
          const tracks = []
+         const similarity = []
       try {
            
            let inputFeatures = []   
@@ -147,11 +149,14 @@ export default function Home() {
             for (const track of output) {
               const result = await searchTrack(`${track.artist},${track.title} `, 1);
               tracks.push(result);
-
+              similarity.push(track.similarity)
 
             }
             setLoading(false)
             setRecommedSearchTracks([...tracks, selectedTrack])
+            setRecommedTracksStats([...similarity, 1])
+
+            
           }
           
       } catch (error) {
@@ -204,7 +209,7 @@ export default function Home() {
   
           const recordings = response.data.recordings;
           if (recordings && recordings.length > 0) {
-              return recordings[0].id; // Return the MBID of the first match
+            return recordings[0].id; // Return the MBID of the first match
           } else {
              console.log("Track not found on MusicBrainz.");
               return "4ad2ca2d-5a12-4142-8371-e402b3401be8";
@@ -216,27 +221,38 @@ export default function Home() {
             // Send back a default response if AcousticBrainz API returns 404
             return "4ad2ca2d-5a12-4142-8371-e402b3401be8"
           }
-          throw error;
+        
       }
   };
 
   const acousticBrainzFeatures = async (mbid) => {
-    const proxyUrl = "https://acousticbrainzproxy-f3otspsfnq-uc.a.run.app";
-    //const proxyUrl = "http://127.0.0.1:5001/lyrcial-rush/us-central1/acousticBrainzProxy";
-      try {
-      const response = await fetch(`${proxyUrl}?mbid=${mbid}`);
-      
+    
+    try {
+      const response = await fetch(`https://acousticbrainz.org/${mbid}/high-level`);
+  
       if (!response.ok) {
+        if (response.status === 404) {
+         
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+  
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("Error calling AcousticBrainz Proxy:", error.message);
+      console.error("No data found for the provided MBID. Using filler data instead");
+      return {
+        message: "No data found for the provided MBID.",
+        defaultData: {
+          tempo: 120.0,
+          key: 0,
+          mood: 1,
+          timbre: [40.0, 20.0, -10.0, 0.0, -45.0, 15.0, 10.0, 2.0, 5.5,
+            10.0, -15.0, 7.0],
+        },
+      };
     }
-};
-
+  };
 // Combined Workflow
 const fetchAudioFeatures = async (track, artist) => {
     try {
@@ -304,13 +320,6 @@ const startOver = () => {
     <div>
     <div className={loading ? "loading" : "hidden"}>
       <h2>Loading</h2>
-    {/*<div className='recordContainer'>
-                  <div style={recordAnimation} className='recordPurple'>
-                     <div className='recordYellow'>
-                        <div className='pin'></div>
-                     </div>
-                  </div>
-               </div>*/}
     </div>
       <div className="homeMainContainer">
         <div className='heroContainer left'>
@@ -348,15 +357,18 @@ const startOver = () => {
             : null}
           {recommedSearchTracks.length > 0 && recommedSearch ? 
           <div className='grindDisplay'>
-            {recommedSearchTracks.map((track) => {
+            {recommedSearchTracks.map((track, i) => {
               return(
+                <div className='tooltip-container'>
                  <div className='recommendTracksContainer' style={{justifyContent: 'flex-start'}} key={track.id}>
                     <img src={track.album.images[0].url} alt="album cover" width={70} height={70}/>
                     <div className='recommendTracksInfo'>
                       <h2>{track.name}</h2>
                       <h3>{track.artists[0].name}</h3>
                     </div>
-                 </div>   
+                 </div>
+                 <div className="tooltip-box">Similarity: {Math.ceil(recommedTracksStats[i] * 100)}%</div>
+                </div>    
                )
             })}
             <button onClick={()=> startOver()}>Start Over</button>
