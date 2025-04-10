@@ -1,0 +1,329 @@
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.822); 
+    display: flex; /* Center the spinner */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color:#27013f;
+  }
+
+  .hidden{
+    visibility: hidden;
+    position: fixed;
+  }
+
+.homeMainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: space-evenly;
+    background-color: #8CFFBE;
+    width: 100%;
+    height: 100vh;
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+
+.homeMainContainer audio{
+    visibility: hidden;
+    position: absolute;
+}
+
+.heroContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.heroContainer input{
+    height: 50px;
+    width: 300px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.recordOuter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 650px;
+    height: 450px;
+    background-color: #484848;
+    border-radius: 100px;
+}
+
+.recordInner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 615px;
+    height: 415px;
+    background-color: #000;
+    border-radius: 100px;
+}
+
+.left{
+    color: #fff;
+}
+
+.left button{
+    margin-top: 20px;
+    border: none;
+    background-color:#FFF44F;
+    height: 50px;
+    width: 200px;
+    border-radius: 20px;
+    color:#4A116D;
+    font-size: large;
+}
+
+.searchTracksContainer{
+    display: flex;
+    background-color: #FFF;
+    justify-content: space-between;
+    align-items: center;
+    width: 350px;
+    height: 100px;
+    border: #DCDCDC solid;
+    border-width: 0.2px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.searchTracksInfo{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   text-align: left;
+   margin-left: 10px;
+}
+
+.searchTracksInfo h2{
+    color: #000;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+
+.searchTracksInfo h3{
+    color:#717171 ;
+    font-size: 12px;
+}
+
+.grindDisplay{
+    display: grid; /* Enable grid layout */
+    grid-template-columns: repeat(2, 1fr); /* Create two columns with equal width */
+    gap: 0px; /* Add spacing between grid items */
+    padding: 10px; /* Optional padding for the container */
+}
+
+.recommendTracksContainer{
+    display: flex;
+    background-color: #FFF;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    height: 100px;
+    border: #DCDCDC solid;
+    border-width: 0.2px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.recommendTracksInfo h2{
+    color: #000;
+    font-size: 10px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+}
+
+.recommendTracksInfo h3{
+    color:#717171;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.tooltip-container {
+    position: relative; /* Relative positioning for the tooltip */
+    display: inline-block; /* Ensures the button and tooltip stay together */
+  }
+
+.playlistButton{
+    opacity: 50%;
+}
+
+.tooltip-box {
+    position: absolute; /* Position relative to the container */
+    bottom: 120%; /* Position above the button */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    visibility: hidden; /* Hide by default */
+    opacity: 0; /* Invisible by default */
+    transition: opacity 0.3s; /* Smooth fade-in effect */
+    z-index: 1; /* Ensure it's above other content */
+  }
+
+.tooltip-container:hover .tooltip-box {
+    visibility: visible; /* Make visible */
+    opacity: 1; /* Fully opaque */
+  }
+
+.tooltip-box::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Below the tooltip box */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent; /* Dark arrow pointing up */
+  }
+
+.closeIconContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.closeIconContainer button{
+  color: #000;
+  background-color: #fff;
+  width: 30px;
+  margin-top: 0px;
+}
+
+.right{
+    margin-left: 50px;
+}
+
+.recordContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+    overflow: visible;
+}
+
+.recordPurple{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-image: linear-gradient(to left top, #4a116d, #410c61, #380755, #2f044a, #27013f);
+  width: 440px;
+  height: 440px;
+  border-radius: 750px;
+  margin-left: -200px;
+  margin-right: -70px;
+}
+
+.recordYellow{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  background-color:#FFF44F;
+  width:250px;
+  height:250px;
+  border-radius: 300px;
+}
+
+.recordYellow h3{
+  color: #4A116D;
+  font-size: 25px;
+}
+
+.pin{
+  background-color:#D9D9D9;
+  height: 15px;
+  width: 15px;
+  border-radius: 100px;
+}
+
+.controlsContainer{
+    display:flex;
+    justify-content: center;
+    align-items: end;
+    width: 40%;
+    height: 100%;
+}
+
+.armContainer{
+    height: 100%;
+    width: 20%;
+
+}
+
+.armContainer img{
+    position: relative;
+    top:120px;
+    right:225px;
+    height: 300px;
+}
+
+.dialContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 50%;
+    width: 20%;
+    margin-left: 20px;
+}
+
+.dial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 43px;
+    background-color: #FFF;
+    border-radius: 60px;
+    border: solid;
+    border-color: #484848;
+    border-width: 10px;
+}
+
+@media(max-width: 1400px) {
+   .homeMainContainer{
+     flex-direction: column;
+     align-items: center;
+     height: 100vh;
+   }
+
+   .heroContainer{
+    
+   
+   }
+
+   .right{
+     display: none;
+   }
+    
+}

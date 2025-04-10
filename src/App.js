@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Home from './pages/home/Home';
-import { getTokenOnLoad, redirectToSpotifyLogin, exchangeAuthorizationCodeForToken, refreshAccessToken } from './getToken'
+import SongRecommender from './pages/songRecommender/SongRecommender';
+import { getTokenOnLoad, exchangeAuthorizationCodeForToken, refreshAccessToken } from './getToken'
 
 import './App.css';
 

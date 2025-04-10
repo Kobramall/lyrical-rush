@@ -1,5 +1,4 @@
 const functions = require("firebase-functions/v2");
-const axios = require("axios");
 const cors = require("cors");
 
 const corsHandler = cors({origin: true});
@@ -7,13 +6,8 @@ const corsHandler = cors({origin: true});
 // Proxy route for AcousticBrainz API
 exports.acousticBrainzProxy = functions.https.onRequest(async (req, res) => {
   corsHandler(req, res, async () => {
-    const mbid = req.query.mbid; // Expecting MBID as a query parameter
-    const url = `https://acousticbrainz.org/${mbid}/high-level`;
-
     try {
-      const response = await axios.get(url);
-      res.set("Access-Control-Allow-Origin", "*");
-      return res.json(response.data);
+      return "hello";
     } catch (error) {
       console.error("Error fetching AcousticBrainz data:", error.message);
 
